@@ -31,7 +31,6 @@ public class GraphicPanel extends JPanel {
         width = getWidth();
         height = getHeight();
         drawGrid(g);
-//        drawGraphic(g);
         MyMouseHandler handler = new MyMouseHandler();
         this.addMouseListener(handler);
         this.addMouseMotionListener(handler);
@@ -59,33 +58,7 @@ public class GraphicPanel extends JPanel {
 //            g.drawLine(0, y, width_y * step, y);    // горизонтальная линия
 //        }
     }
-    private void drawGraphic(Graphics g) {
-        g.setColor(graphicColor); // устанавливаем цвет графика
 
-//        for(int x=0; x<width; x++){           // делаем цикл с левой стороны экрана до правой
-//            int realX = x - width/2;   // так, как слева от оси OX минус, то отнимаем от текущей точки центральную точку
-//            double rad = realX/30.0;   // переводим текущую коориднату в радианы, 30 пикселей по ширине == 1 радиану
-//            double sin = Math.atan(rad);       // вычисляем синус угла
-//            int y = height/2 +  (sin * 90);  // переводим значение синуса в координату нашей системы
-//
-//            g.drawOval(x, y, 2, 2);   // рисуем кружок в этой точке
-//        }
-    }
-
-    /**
-     * Sets name and color.
-     *
-     * @param name  the name
-     * @param color the color
-     */
-    public void setNameAndColor(String name, String color) {
-        try {
-            this.graphicColor = Color.decode(color);
-        } catch (Exception e) {
-            this.graphicColor = Color.RED;
-        }
-        repaint();
-    }
 
     /**
      * Init game
@@ -167,7 +140,6 @@ public class GraphicPanel extends JPanel {
     public void defeat()
     {
         BufferedImage  miner = null;
-        BufferedImage  clear = null;
         BufferedImage  image_1 = null;
         BufferedImage  image_2 = null;
         BufferedImage  image_3 = null;
@@ -187,10 +159,7 @@ public class GraphicPanel extends JPanel {
         File image6 = new File("clear6.png");
         File image7 = new File("clear7.png");
         File image8 = new File("clear8.png");
-        File image_claer = new File("clear20.png");
-
         try {
-            clear=ImageIO.read(image_claer);
             miner=ImageIO.read(image_file);
             image_0 = ImageIO.read(image0);
             image_1 = ImageIO.read(image1);
@@ -213,47 +182,48 @@ public class GraphicPanel extends JPanel {
                 switch (new_desk[x][y].getCount()) {
                     case 0:
                         g.drawImage(image_0,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 1:
                         g.drawImage(image_1,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 2:
                         g.drawImage(image_2,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 3:
                         g.drawImage(image_3,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 4:
                         g.drawImage(image_4,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 5:
                         g.drawImage(image_5,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 6:
                         g.drawImage(image_6,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 7:
                         g.drawImage(image_7,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 8:
                         g.drawImage(image_8,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                     case 9:
                         g.drawImage(miner,  y * step+1,  x * step, null);
-                        System.out.print(new_desk[x][y].getCount()+"|");
+//                        System.out.print(new_desk[x][y].getCount()+"|");
                         break;
                 }
             }
         }
+//        repaint();
     }
     /**
      * mousePressed
@@ -274,15 +244,25 @@ public class GraphicPanel extends JPanel {
             }
              g = getGraphics();
             if (e.getButton() == MouseEvent.BUTTON1) {
-                g.drawImage(image_clear,  (x1 / step) * step,  (y1 / step) * step, null);
+                move(image_clear,x1,y1);
                                 System.out.println(x1+":"+y1);
 //                g.draw3DRect(x1, y1, step, step, true);
             }
             if (e.getButton() == MouseEvent.BUTTON3) {
-                g.drawImage(img_bomb,  (x1 / step) * step,  (y1 / step) * step, null);
+                bomb(img_bomb,x1,y1);
             }
         }
         public void mouseDragged(MouseEvent e) {
         }
+    }
+
+    private void bomb(BufferedImage img_bomb, int x1, int y1) {
+        g.drawImage(img_bomb,  (x1 / step) * step,  (y1 / step) * step, null);
+
+    }
+
+    private void move(BufferedImage image_clear, int x1, int y1) {
+        g.drawImage(image_clear,  (x1 / step) * step,  (this.y1 / step) * step, null);
+
     }
 }
