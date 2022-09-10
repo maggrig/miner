@@ -8,7 +8,7 @@ import java.awt.*;
 public class Cell {
       private boolean bomb=false;
     /**
-     * The Cell.
+     *   The Cell.
      */
     Rectangle cell=null;
       private int x;
